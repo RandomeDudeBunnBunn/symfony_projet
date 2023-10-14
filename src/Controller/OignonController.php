@@ -1,0 +1,81 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\Oignon;
+use App\Repository\OignonRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
+#[Route('/oignon', name: 'oignon_')]
+class OignonController extends AbstractController
+{
+    #[Route('', name: 'creation_oignons', methods: ['GET', 'POST'])]
+    public function creation(Request $request, EntityManagerInterface $em): Response
+    {
+        $oignon = new Oignon();
+        $form = $this->createForm(OignonType::class, $oignon);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($oignon);
+            $em->flush();
+
+            $this->addFlash('success', 'Oignon créé!');
+            $this->redirectToRoute('oignon_liste_oignons');
+        }
+
+        return $this->render('oignon/ajout_oignon.html.twig', [
+            'oignon' => $oignon,
+            'form' => $form
+        ]);
+    }
+
+    #[Route('/liste', name: 'liste_oignons')]
+    public function liste(OignonRepository $oignonRepository): Response
+    {
+        $oignons = $oignonRepository->findAll();
+
+        return $this->render('oignon/ajout_oignon.html.twig', [
+            'oignons' => $oignons,
+        ]);
+    }
+
+    #[Route('/{id\<d+>}/update', name: 'modification_oignons', methods: ['GET', 'POST'])]
+    public function modification(Oignon $oignon, Request $request, EntityManagerInterface $em, OignonRepository $oignonRepository): Response
+    {
+        $oignon = $oignonRepository->find($oignon);
+        $form = $this->createForm(OignonType::class, $oignon);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            $this->addFlash('success', 'Oignon modifié!');
+            $this->redirectToRoute('oignon_liste_oignons');
+        }
+
+        return $this->render('oignon/ajout_oignon.html.twig', [
+            'oignon' => $oignon,
+            'form' => $form
+        ]);
+    }
+
+    #[Route('{id\<d+>}/supprimer', name: 'supprimer_oignons', methods: ['GET', 'DELETE'])]
+    public function supprimer(Oignon $oignon, Request $request, EntityManagerInterface $em): RedirectResponse
+    {
+        // Utilisation d'un token de suppression peut être intéressant dans le cours.
+        $em->remove($oignon);
+        $em->flush();
+        $this->addFlash('success', 'Oignon supprimé!');
+
+        return $this->redirectToRoute('oignon_liste_oignons');
+
+    }
+
+
+
+
+}
