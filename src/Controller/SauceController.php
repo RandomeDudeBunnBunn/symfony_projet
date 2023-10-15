@@ -25,7 +25,7 @@ class SauceController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Sauce créé!');
-            $this->redirectToRoute('sauce_liste_sauces');
+            $this->redirectToRoute('sauce_liste');
         }
 
         return $this->render('sauce/ajout_sauce.html.twig', [
@@ -34,17 +34,17 @@ class SauceController extends AbstractController
         ]);
     }
 
-    #[Route('/liste', name: 'liste_sauces')]
+    #[Route('/liste', name: 'liste')]
     public function liste(SauceRepository $sauceRepository): Response
     {
         $sauces = $sauceRepository->findAll();
-        return $this->render('sauce/ajout_sauce.html.twig', [
+        return $this->render('sauce/liste_sauce.html.twig', [
             'sauces' => $sauces,
         ]);
 
     }
 
-    #[Route('/{id\<d+>}/update', name: 'modification_sauces', methods: ['GET', 'POST'])]
+    #[Route('/{id\<d+>}/update', name: 'modification', methods: ['GET', 'POST'])]
     public function modification(Sauce $sauce, Request $request, EntityManagerInterface $em, sauceRepository $sauceRepository): Response
     {
         $sauce = $sauceRepository->find($sauce);
@@ -54,7 +54,7 @@ class SauceController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Sauce modifié!');
-            $this->redirectToRoute('sauce_liste_sauces');
+            $this->redirectToRoute('sauce_liste');
         }
 
         return $this->render('sauce/ajout_sauce.html.twig', [
@@ -63,7 +63,7 @@ class SauceController extends AbstractController
         ]);
     }
 
-    #[Route('{id\<d+>}/supprimer', name: 'supprimer_sauces', methods: ['GET', 'DELETE'])]
+    #[Route('{id\<d+>}/supprimer', name: 'supprimer', methods: ['GET', 'DELETE'])]
     public function supprimer(Sauce $sauce, Request $request, EntityManagerInterface $em): RedirectResponse
     {
         // Utilisation d'un token de suppression peut être intéressant dans le cours.
@@ -71,7 +71,7 @@ class SauceController extends AbstractController
         $em->flush();
         $this->addFlash('success', 'Sauce supprimé!');
 
-        return $this->redirectToRoute('sauce_liste_sauces');
+        return $this->redirectToRoute('sauce_liste');
 
     }
 }

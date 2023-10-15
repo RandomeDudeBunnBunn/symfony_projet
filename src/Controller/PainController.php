@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 #[Route('/pain', name: 'pain_')]
 class PainController extends AbstractController
 {
-    #[Route('', name: 'creation_pains', methods: ['GET', 'POST'])]
+    #[Route('', name: 'creation', methods: ['GET', 'POST'])]
     public function creation(Request $request, EntityManagerInterface $em): Response
     {
         $pain = new Pain();
@@ -34,17 +34,17 @@ class PainController extends AbstractController
         ]);
     }
 
-    #[Route('/liste', name: 'liste_pains')]
+    #[Route('/liste', name: 'liste')]
     public function liste(PainRepository $painRepository): Response
     {
         $pains = $painRepository->findAll();
-        return $this->render('pain/ajout_pain.html.twig', [
+        return $this->render('pain/liste_pain.html.twig', [
             'pains' => $pains,
         ]);
 
     }
 
-    #[Route('/{id\<d+>}/update', name: 'modification_pains', methods: ['GET', 'POST'])]
+    #[Route('/{id\<d+>}/update', name: 'modification', methods: ['GET', 'POST'])]
     public function modification(pain $pain, Request $request, EntityManagerInterface $em, painRepository $painRepository): Response
     {
         $pain = $painRepository->find($pain);
@@ -54,7 +54,7 @@ class PainController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Pain modifié!');
-            $this->redirectToRoute('pain_liste_pains');
+            $this->redirectToRoute('pain_liste');
         }
 
         return $this->render('pain/ajout_pain.html.twig', [
@@ -63,7 +63,7 @@ class PainController extends AbstractController
         ]);
     }
 
-    #[Route('{id\<d+>}/supprimer', name: 'supprimer_pains', methods: ['GET', 'DELETE'])]
+    #[Route('{id\<d+>}/supprimer', name: 'supprimer', methods: ['GET', 'DELETE'])]
     public function supprimer(Pain $pain, Request $request, EntityManagerInterface $em): RedirectResponse
     {
         // Utilisation d'un token de suppression peut être intéressant dans le cours.
@@ -71,7 +71,7 @@ class PainController extends AbstractController
         $em->flush();
         $this->addFlash('success', 'Pain supprimé!');
 
-        return $this->redirectToRoute('pain_liste_pains');
+        return $this->redirectToRoute('pain_liste');
 
     }
 }

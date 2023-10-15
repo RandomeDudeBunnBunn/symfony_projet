@@ -3,12 +3,13 @@
 namespace App\Controller;
 
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class TestController
+class TestController extends AbstractController
 {
-    #[Route('/test', name: 'app_test')]
-    public function number()
+    #[Route('/', name: 'home')]
+    public function test()
     {
-        dd('welcome! ');
+        return $this->render('home.html.twig', ['test' => 'SOLEIL !!']);
     }
 }
