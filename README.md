@@ -1,4 +1,4 @@
-# 🍔
+# 🍔 Bienvenue au Crud Croutsillant 🍔
 
 ## Documentation:
 
