@@ -74,8 +74,4 @@ class OignonController extends AbstractController
         return $this->redirectToRoute('oignon_liste');
 
     }
-
-
-
-
 }
