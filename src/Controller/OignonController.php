@@ -7,7 +7,7 @@ use App\Repository\OignonRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -25,12 +25,12 @@ class OignonController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Oignon créé!');
-            $this->redirectToRoute('oignon_liste');
+            return $this->redirectToRoute('oignon_liste');
         }
 
         return $this->render('oignon/ajout_oignon.html.twig', [
             'oignon' => $oignon,
-            'form' => $form
+            'form' => $form->createView()
         ]);
     }
 
@@ -59,7 +59,7 @@ class OignonController extends AbstractController
 
         return $this->render('oignon/ajout_oignon.html.twig', [
             'oignon' => $oignon,
-            'form' => $form
+            'form' => $form->createView()
         ]);
     }
 

@@ -7,7 +7,7 @@ use App\Repository\PainRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -25,12 +25,12 @@ class PainController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Pain créé!');
-            $this->redirectToRoute('pain_liste_pains');
+            return $this->redirectToRoute('pain_liste_pains');
         }
 
         return $this->render('pain/ajout_pain.html.twig', [
             'pain' => $pain,
-            'form' => $form
+            'form' => $form->createView()
         ]);
     }
 
@@ -54,12 +54,12 @@ class PainController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Pain modifié!');
-            $this->redirectToRoute('pain_liste');
+            return $this->redirectToRoute('pain_liste');
         }
 
         return $this->render('pain/ajout_pain.html.twig', [
             'pain' => $pain,
-            'form' => $form
+            'form' => $form->createView()
         ]);
     }
 

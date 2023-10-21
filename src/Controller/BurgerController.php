@@ -8,7 +8,7 @@ use App\Repository\BurgerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -19,14 +19,14 @@ class BurgerController extends AbstractController
     public function creation(Request $request, EntityManagerInterface $em): Response
     {
         $burger = new Burger();
-        $form = $this->createForm(burgerType::class, $burger);
+        $form = $this->createForm(BurgerType::class, $burger);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($burger);
             $em->flush();
 
             $this->addFlash('success', 'Burger créé!');
-            $this->redirectToRoute('burger_liste');
+            return $this->redirectToRoute('burger_liste');
         }
 
         return $this->render('burger/ajout_burger.html.twig', [
@@ -55,7 +55,7 @@ class BurgerController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Burger modifié!');
-            $this->redirectToRoute('burger_liste');
+            return $this->redirectToRoute('burger_liste');
         }
 
         return $this->render('burger/ajout_burger.html.twig', [

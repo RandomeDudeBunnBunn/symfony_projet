@@ -7,7 +7,7 @@ use App\Repository\SauceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -25,12 +25,12 @@ class SauceController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Sauce créé!');
-            $this->redirectToRoute('sauce_liste');
+            return $this->redirectToRoute('sauce_liste');
         }
 
         return $this->render('sauce/ajout_sauce.html.twig', [
             'sauce' => $sauce,
-            'form' => $form
+            'form' => $form->createView()
         ]);
     }
 
@@ -59,7 +59,7 @@ class SauceController extends AbstractController
 
         return $this->render('sauce/ajout_sauce.html.twig', [
             'sauce' => $sauce,
-            'form' => $form
+            'form' => $form->createView()
         ]);
     }
 

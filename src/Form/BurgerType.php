@@ -4,13 +4,14 @@ namespace App\Form;
 
 use App\Entity\Burger;
 use App\Entity\Oignon;
-use App\Entity\Pain;
 use App\Entity\Sauce;
+use App\Entity\Pain;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class BurgerType extends AbstractType
 {
@@ -22,15 +23,20 @@ class BurgerType extends AbstractType
             ])
             ->add('pain' , EntityType::class, [
                 'class' => Pain::class,
-                'choice_label' => 'Pain'
+                'choice_label' => 'nom',
             ])
-            ->add('pain' , EntityType::class, [
+            ->add('oignon' , EntityType::class, [
                 'class' => Oignon::class,
-                'choice_label' => 'Pain'
+                'choice_label' => 'nom',
+                'multiple' => true,
             ])
-            ->add('pain' , EntityType::class, [
-                'class' => Sauce::class,
-                'choice_label' => 'Pain'
+            ->add('sauce' , EntityType::class, [
+                'class' =>  Sauce::class,
+                'choice_label' => 'nom',
+                'multiple' => true,
+            ])
+            ->add('save', SubmitType::class, [
+                'attr' => ['class' => 'save'],
             ])
             ;
    }
