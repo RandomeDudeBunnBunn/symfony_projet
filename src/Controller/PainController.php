@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Pain;
+use App\Form\PainType;
 use App\Repository\PainRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,7 +26,7 @@ class PainController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Pain créé!');
-            return $this->redirectToRoute('pain_liste_pains');
+            return $this->redirectToRoute('pain_liste');
         }
 
         return $this->render('pain/ajout_pain.html.twig', [

@@ -2,11 +2,5 @@
 {% block title %}{{ parent() }} | Ajout Pain{% endblock %}
 
 {% block body %}
-    {# {{ form_start(form) }}
-        <div class="form-group row">
-                {{ form_errors(form.nom) }}
-                {{ form_label(form.nom) }}
-                {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': form.nom.vars.label} }) }}
-        </div>
-    {{ form_end(form) }} #}
+    {{ form(form) }}
 {% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Oignon;
+use App\Form\OignonType;
 use App\Repository\OignonRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -38,7 +39,6 @@ class OignonController extends AbstractController
     public function liste(OignonRepository $oignonRepository): Response
     {
         $oignons = $oignonRepository->findAll();
-
         return $this->render('oignon/liste_oignon.html.twig', [
             'oignons' => $oignons,
         ]);

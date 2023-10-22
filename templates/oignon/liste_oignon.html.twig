@@ -2,7 +2,18 @@
 {% block title %}{{ parent() }} | Liste oignon{% endblock %}
 
 {% block body %}
-    <h1 class="text-3xl font-bold underline m-0">
-        Liste oignon
-    </h1>
+    <div>
+        <h1 class="text-3xl font-bold underline m-0">
+            Liste Oignon
+        </h1>
+        <a href="{{ path('oignon_creation') }}"> + </a>
+    </div>
+
+    <div>
+        <ol>
+            {% for oignon in oignons %}
+                <li> {{ oignon.nom }} </li>
+            {% endfor %}
+        </ol>
+    </div>
 {% endblock %}

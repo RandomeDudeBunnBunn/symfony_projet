@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Sauce;
+use App\Form\SauceType;
 use App\Repository\SauceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,7 +15,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 #[Route('/sauce', name: 'sauce_')]
 class SauceController extends AbstractController
 {
-    #[Route('', name: 'creation_sauces', methods: ['GET', 'POST'])]
+    #[Route('', name: 'creation', methods: ['GET', 'POST'])]
     public function creation(Request $request, EntityManagerInterface $em): Response
     {
         $sauce = new Sauce();
