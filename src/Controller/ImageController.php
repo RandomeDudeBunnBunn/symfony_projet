@@ -24,8 +24,10 @@ class ImageController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $imageRequest = $request->files->get('image')['url'];
-            $image->setUrl($imageRequest->getFileName());
-            $image->setAltText($imageRequest->getFileName());
+            $fileName = 'images/uploaded/' . $imageRequest->getClientOriginalName();
+            $image->setUrl($fileName);
+            $image->setAltText('This is an image!');
+            $imageRequest->move('images/uploaded', $imageRequest->getClientOriginalName());
             $em->persist($image);
             $em->flush();
 

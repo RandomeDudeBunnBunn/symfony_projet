@@ -35,6 +35,7 @@ class BurgerType extends AbstractType
                 'choice_label' => 'nom',
                 'multiple' => true,
             ])
+            ->add('image', ImageType::class)
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'save'],
             ])

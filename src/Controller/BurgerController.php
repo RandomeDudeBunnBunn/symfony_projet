@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Burger;
+use App\Entity\Image;
 use App\Form\BurgerType;
 use App\Repository\BurgerRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,9 +20,16 @@ class BurgerController extends AbstractController
     public function creation(Request $request, EntityManagerInterface $em): Response
     {
         $burger = new Burger();
+        $image = new Image();
         $form = $this->createForm(BurgerType::class, $burger);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $imageRequest = $request->files->get('burger')['image']['url'];
+            $fileName = 'images/uploaded/' . $imageRequest->getClientOriginalName();
+            $image->setUrl($fileName);
+            $image->setAltText('This is an image!');
+            $imageRequest->move('images/uploaded', $imageRequest->getClientOriginalName());
+            $burger->setImage($image);
             $em->persist($burger);
             $em->flush();
 
