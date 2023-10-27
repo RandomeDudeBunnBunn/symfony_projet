@@ -12,7 +12,11 @@
     <div>
         <ol>
             {% for burger in burgers %}
-                <li> {{ burger.nom }} </li>
+                <li>
+                    <a href="{{ path("burger_detail", {'id': burger.id}) }}">
+                        {{ burger.nom }}    
+                    </a> 
+                </li>
             {% endfor %}
         </ol>
     </div>

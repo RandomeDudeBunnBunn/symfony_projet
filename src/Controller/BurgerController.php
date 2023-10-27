@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Burger;
+use App\Entity\Commentaire;
 use App\Entity\Image;
 use App\Form\BurgerType;
+use App\Form\CommentaireType;
 use App\Repository\BurgerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -51,6 +53,34 @@ class BurgerController extends AbstractController
         return $this->render('burger/liste_burger.html.twig', [
             'burgers' => $burgers,
         ]);
+    }
+
+    #[Route('/{id}', name: 'detail', methods: ['GET', 'POST'])]
+    public function detail(Burger $burger, EntityManagerInterface $em, Request $request): Response
+    {
+        $burgerDetail = $em->getRepository(Burger::class)->find(['id' => $burger->getId()]);
+        $commentaires = $em->getRepository(Commentaire::class)->findBy(['burger' => $burger]);
+
+        // commentaire 
+        $commentaire = new Commentaire();
+        $form = $this->createForm(CommentaireType::class, $commentaire);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $commentaire->setBurger($burger);
+            $em->persist($commentaire);
+            $em->flush();
+
+            $this->addFlash('success', 'Commentaire posté!');
+            return $this->redirectToRoute('burger_detail', ['id' => $burger->getId()]);
+        }
+
+        return $this->render('burger/detail_burger.html.twig', [
+            'burger' => $burgerDetail,
+            'commentaires' => $commentaires,
+            'form' => isset($form) ? $form : null,
+        ]);
+
     }
 
     #[Route('/{id\<d+>}/update', name: 'modification', methods: ['GET', 'POST'])]
