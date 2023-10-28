@@ -2,15 +2,11 @@
 
 ## Documentation:
 
-### 🌿
-- https://tailwindcss.com/docs/installation/play-cdn
-- https://tailwindcss.com/docs/flex-basis
-- https://tailwindcss.com/docs/margin
-- https://tailwindcss.com/docs/padding
+### ✒️
+- https://getbootstrap.com/docs/4.0/getting-started/introduction/
 
 ### ⚙️
 - https://symfony.com/doc/current/index.html
-
 
 ### ❓
 - https://stackoverflow.com/questions/62412312/symfony-makemigration-the-metadata-storage-is-not-up-to-date-please-run-the
