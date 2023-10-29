@@ -10,7 +10,7 @@
 - [ ] Tri des commentaires par note sur le détail du burger (utilisation de service SF & JS pour ajax si le temps)
 - [ ] Ajout de la propriété "created_at" pour afficher les 5 derniers burgers créés sur la page d'acceuil
 - [ ] Template réutilisable pour l'affichage des burgers sur la home et la liste
-- [ ] 
+- [ ] ...
  
 ## Notation:
 - Qualité du code => Fonction bien déclarée, typage, indentation...
