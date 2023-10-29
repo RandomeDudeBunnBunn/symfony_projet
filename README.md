@@ -1,5 +1,24 @@
 # 🍔 Bienvenue au Crud Croutsillant 🍔
 
+## Roadmap:
+### 🌍 Global:
+- [X] CRUD général SF feature
+- [ ] Optimisation du code
+### 🧑‍💻 Algo & code
+- [ ] Ajout du prix du burger pour utilisation d'algo avec Prix HT et TTC (utilisation de service SF)
+- [ ] Tri des burgers par ingrédients (mapping, tri...)
+- [ ] Tri des commentaires par note sur le détail du burger (utilisation de service SF & JS pour ajax si le temps)
+- [ ] Ajout de la propriété "created_at" pour afficher les 5 derniers burgers créés sur la page d'acceuil
+- [ ] Template réutilisable pour l'affichage des burgers sur la home et la liste
+- [ ] 
+ 
+## Notation:
+- Qualité du code => Fonction bien déclarée, typage, indentation...
+- Toutes les fonctionnalités du cours
+- Artchitecture des fichiers
+- Bonnes pratiques 
+- Commit convention
+
 ## Documentation:
 
 ### ✒️
